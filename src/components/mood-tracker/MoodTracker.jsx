@@ -44,20 +44,23 @@ export default class MoodTracker extends Component {
   };
   handleSubmit = (e) => {
     e.preventDefault();
-    this.setState((prevState) => {
-      const newNoteData = {
-        note: prevState.noteInput,
-        date: new Date().toLocaleDateString(),
-        points: prevState.points,
-      };
-      return {
-        // noteData: prevState.noteData.push(newNoteData),/////DO NOT USE PUSH HERE!!!
-        //USE STRING CONCATENATION!!!//
-        // noteData: prevState.noteData.concat([newNoteData]),
-        //USE SPREAD OPERATOR//
-        noteData: [...prevState.noteData, newNoteData],
-      };
-    });
+    this.setState(
+      (prevState) => {
+        const newNoteData = {
+          note: prevState.noteInput,
+          date: new Date().toLocaleDateString(),
+          points: prevState.points,
+        };
+        return {
+          // noteData: prevState.noteData.push(newNoteData),/////DO NOT USE PUSH HERE!!!
+          //USE STRING CONCATENATION!!!//
+          // noteData: prevState.noteData.concat([newNoteData]),
+          //USE SPREAD OPERATOR//
+          noteData: [...prevState.noteData, newNoteData],
+        };
+      },
+      () => this.setState({ noteInput: "" })
+    );
   };
   //render//
   render() {
@@ -83,6 +86,7 @@ export default class MoodTracker extends Component {
             type="text"
             placeholder="how are you feeling?"
             onChange={this.handleInputChange}
+            value={this.state.noteInput}
           />
           <input type="submit" value="Save Note" />
         </form>
